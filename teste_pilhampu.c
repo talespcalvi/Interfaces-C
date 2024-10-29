@@ -1,37 +1,47 @@
 #include <stdio.h>
 #include "pilhampuTAD.h"
 
-int main(void) 
-{
-    pilhaMPU*  pilha = criar_pilha();
+int main() {
+    pilhaMPU* pilha = criar_pilha();
 
-    MPU* sensor1 = criar_mpu(0, 0);
-    setar_aceleracao(sensor1, 16384, 0, 0);
-    setar_rotacao(sensor1, 131, 0, 0);
-    empilhar(pilha, sensor1);
-    
-    MPU* sensor2 = criar_mpu(1, 1); // ±4g, ±500°/s
-    setar_aceleracao(sensor2, 8192, -8192, 4096); // Exemplo de acelerações variadas
-    setar_rotacao(sensor2, 65, -65, 33);           // Exemplo de rotações variadas
-    empilhar(pilha, sensor2);
+    if (vazia(pilha)) {
+        printf("Pilha inicialmente vazia.\n");
+    }
 
-    MPU* sensor3 = criar_mpu(2, 2); // ±8g, ±1000°/s
-    setar_aceleracao(sensor3, -4096, -4096, -4096); // Acelerações negativas
-    setar_rotacao(sensor3, -32, -32, -32);           // Rotações negativas
-    empilhar(pilha, sensor3);
+    printf("Empilhando sensores...\n");
 
-    while (!vazia(pilha))
-    {
+    for (int i = 0; i < 3; i++) {
+        MPU* sensor = criar_mpu(i, i);
+        setar_aceleracao(sensor, 1000 * (i + 1), 2000 * (i + 1), 3000 * (i + 1));
+        setar_rotacao(sensor, 10 * (i + 1), 20 * (i + 1), 30 * (i + 1));
+        empilhar(pilha, sensor);
+        printf("Sensor %d empilhado com sucesso.\n", i + 1);
+    }
+
+    if (cheia(pilha)) {
+        printf("A pilha está cheia! Não é possível empilhar mais sensores.\n");
+    } else {
+        MPU* sensorExtra = criar_mpu(0, 0);
+        empilhar(pilha, sensorExtra);
+        printf("Sensor extra empilhado com sucesso.\n");
+    }
+
+    printf("\nDesempilhando sensores...\n");
+    while (!vazia(pilha)) {
         MPU* sensor = desempilhar(pilha);
 
         float acX, acY, acZ, rotX, rotY, rotZ;
         pegar_aceleracao(sensor, &acX, &acY, &acZ);
-        pegar_rotacao(sensor, &rotX,  &rotY, &rotZ);
+        pegar_rotacao(sensor, &rotX, &rotY, &rotZ);
 
-        printf("Aceleração: X = %.4fg, Y = %.4fg, Z = %.4fg\n", acX, acY, acZ);
-        printf("Rotação: X = %.4f°/s, Y = %.4f°/s, Z = %.4f°/s\n\n", rotX, rotY, rotZ);
+        printf("Aceleração do Sensor: X = %.2fg, Y = %.2fg, Z = %.2fg\n", acX, acY, acZ);
+        printf("Rotação do Sensor: X = %.2f°/s, Y = %.2f°/s, Z = %.2f°/s\n\n", rotX, rotY, rotZ);
 
         apagar_mpu(sensor);
+    }
+
+    if (vazia(pilha)) {
+        printf("Pilha vazia após desempilhar todos os sensores.\n");
     }
 
     apagar_pilha(pilha);
