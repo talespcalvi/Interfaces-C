@@ -23,15 +23,9 @@
 /**
  * TIPO: pilhaMPU
  * ---------------
- * Este tipo abstrato de dado representa uma pilha de sensores MPU.
- * Armazena até 100 sensores utilizando um array e acompanha o índice
- * do topo da pilha.
+ * Define um ponteiro opaco para uma pilha de sensores MPU.
  */
-typedef struct 
-{
-    MPU* sensores[MAX_PILHA];  // Array de ponteiros para sensores MPU
-    int topo;                  // Índice do topo da pilha
-} pilhaMPU;
+typedef struct pilhaMPU pilhaMPU;
 
 /*** Declarações de Subprogramas ***/
 
