@@ -5,6 +5,14 @@
 int ac_escala[] = {16384, 8192, 4096, 2048};
 float rot_escala[] = {131, 65.5, 32.8, 16.4};
 
+struct MPU {
+    int ax, ay, az;          // Valores brutos da aceleração
+    float acX, acY, acZ;     // Valores finais da aceleração
+    int rx, ry, rz;          // Valores brutos da rotação
+    float rotX, rotY, rotZ;  // Valores finais da rotação
+    int ac_sens, rot_sens;   // Sensibilidade da aceleração e rotação
+};
+
 MPU* criar_mpu(int ac_sens, int rot_sens)
 {
   MPU* sensor = (MPU*) malloc(sizeof(MPU));
