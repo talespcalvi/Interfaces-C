@@ -14,10 +14,6 @@
 
 #include "mpuTAD.h"
 
-/*** Defines ***/
-
-#define MAX_PILHA 100  // Tamanho máximo da pilha de sensores MPU
-
 /*** Tipos de Dados ***/
 
 /**
