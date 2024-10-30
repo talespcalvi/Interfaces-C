@@ -9,22 +9,6 @@
 #ifndef MPU_TAD_H
 #define MPU_TAD_H
 
-/*** Tipos de Dados ***/
-/**
- * TIPO: MPU
- * −−−−−−−−−−−−−−−
- * Este tipo abstrato de dado é utilizado para representar um sensor mpu.
- */
-
-typedef struct 
-{
-  int ax, ay, az;          // Valores brutos da aceleração
-  float acX, acY, acZ;     // Valores finais da aceleração
-  int rx, ry, rz;          // Valores brutos da rotação
-  float rotX, rotY, rotZ;  // Valores finais da rotação
-  int ac_sens, rot_sens;   // Sensibilidade da aceleração e rotação
-} MPU;
-
 /*** Declarações de Subprogramas ***/
 
 /**
