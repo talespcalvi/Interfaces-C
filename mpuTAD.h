@@ -9,6 +9,15 @@
 #ifndef MPU_TAD_H
 #define MPU_TAD_H
 
+/*** Tipos de Dados ***/
+
+/**
+ * TIPO: MPU
+ * −−−−−−−−−−−−−−−
+ * Este tipo abstrato de dado é utilizado para representar um sensor mpu.
+ */
+typedef struct MPU MPU;  
+
 /*** Declarações de Subprogramas ***/
 
 /**
